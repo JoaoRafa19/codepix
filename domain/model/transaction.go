@@ -2,6 +2,7 @@ package model
 
 import (
 	"errors"
+	"fmt"
 	"time"
 
 	"github.com/asaskevich/govalidator"
@@ -65,7 +66,8 @@ func (t *Transaction) isValid() error {
 	}
 
 	if t.Status != TransactionPending && t.Status != TransactionCompleted && t.Status != TransactionError {
-		return errors.New("invalid status for the transaction")
+		
+		return fmt.Errorf("invalid status for the transaction: %v", t.Status)
 	}
 
 	if t.PixKeyTo.AccountId == t.AccountFrom.ID {

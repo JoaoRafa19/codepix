@@ -40,7 +40,7 @@ func ConectDB(env string) *gorm.DB {
 	}
 
 	if err != nil {
-		log.Fatal("Error conecting to database: %v", err)
+		log.Fatalf("Error conecting to database: %v", err)
 		panic(err)
 	}
 
