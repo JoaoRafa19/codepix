@@ -4,9 +4,8 @@ import (
 	"fmt"
 
 	"github.com/JoaoRafa19/codepix/domain/model"
-	"gorm.io/gorm"
+	"github.com/jinzhu/gorm"
 )
-
 
 // implements PixKeyRepositoryInterface interface
 type PixKeyRepositoryDB struct {
@@ -41,7 +40,7 @@ func (r PixKeyRepositoryDB) FindKeyByKind(key string, kind string) (*model.PixKe
 	var pixKey model.PixKey
 
 	r.Db.Preload("Account.Bank").First(&pixKey, "kind = ? and key = ?", kind, key)
-	
+
 	if pixKey.ID == "" {
 		return nil, fmt.Errorf("no key was found")
 
@@ -49,8 +48,7 @@ func (r PixKeyRepositoryDB) FindKeyByKind(key string, kind string) (*model.PixKe
 	return &pixKey, nil
 }
 
-
-func (r PixKeyRepositoryDB) FindAccount (id string) (*model.Account, error) {
+func (r PixKeyRepositoryDB) FindAccount(id string) (*model.Account, error) {
 	var account model.Account
 
 	r.Db.Preload("Bank").First(&account, "id = ?", id)
@@ -62,7 +60,7 @@ func (r PixKeyRepositoryDB) FindAccount (id string) (*model.Account, error) {
 	return &account, nil
 }
 
-func (r PixKeyRepositoryDB) FindBank (id string) (*model.Bank, error) {
+func (r PixKeyRepositoryDB) FindBank(id string) (*model.Bank, error) {
 	var bank model.Bank
 
 	r.Db.Preload("Accounts").First(&bank, "id = ?", id)
