@@ -1,19 +1,22 @@
- - É uma solução para simular transferências de valores entre bancos fictícios através de chaves (e-mail, CPF).
- - Simularemos diversos bancos e contas bancárias que possuem uma chave PIX atribuída.
- - Cada conta bancária poderá cadastrar suas chaves Pix.
- - Uma conta bancária modera realizar uma transferência para outra conta em outro banco utilizando a chave Pix da conta de destino.
- - Uma transação não pode ser perdida mesmo que: o CodePix esteja fora do ar.
- -  Uma transação não pode ser perdida mesmo que: o Banco de destino esteja fora do ar.
-# Sobre os Bancos
+# CodePix
+
+## Sobre a aplcicação
+
+- É uma solução para simular transferências de valores entre bancos fictícios através de chaves (e-mail, CPF).
+- Simularemos diversos bancos e contas bancárias que possuem uma chave PIX atribuída.
+- Cada conta bancária poderá cadastrar suas chaves Pix.
+- Uma conta bancária modera realizar uma transferência para outra conta em outro banco utilizando a chave Pix da conta de destino.
+- Uma transação não pode ser perdida mesmo que: o CodePix esteja fora do ar.
+- Uma transação não pode ser perdida mesmo que: o Banco de destino esteja fora do ar.
+
+### Sobre os Bancos
 
 - O banco será um microsserviço com funções limitadas a cadastro de contas e chave Pix, bem como transferências de valores.
 - Utilizaremos a mesma aplicação para simular diversos bancos, mudando apenas as cores, nome e código.
 - Nest.js no Backend.
 - Next.js no frontend.
 
-
-
-# Sobre o CODEPIX
+### Sobre o CODEPIX
 
 - o Microserviço CODEPIX será responsável por intermedias as transferências bancárias.
 - Receberá a transação de transferência.
@@ -23,7 +26,7 @@
 - Recebe a confirmação do banco de origem de que ele processou (Status: COMPLETED ).
 - Marca a transação como completa (Status: COMPLETED).
 
-## Cadastro e consulta de chaves Pix
+### Cadastro e consulta de chaves Pix
 
 ```mermaid
 graph LR
@@ -36,9 +39,7 @@ CDPP -->|Recebe confirmação da criação| BBXB
 
 ```
 
-
-## Dinâmica do processo
-
+### Dinâmica do processo
 
 ```mermaid
 graph TD
@@ -54,20 +55,18 @@ CDP --> |Confirmação. Status=Confirmed|BBX
 
 ```
 
-
-
-# Principais desafios
+### Principais desafios
 
 - Comunicação rápida e eficiente.
 - Criação e consulta instantânea das chaves (Síncronas).
 - Garantia que nenhuma transação seja perdida, mesmo que qualquer dos 3 estejam fora do ar (Assíncrona).
 
-## Tecnologias Utilizadas
- - gRPC
- - apache Kafka
+### Tecnologias Utilizadas
 
+- gRPC
+- apache Kafka
 
-# CODEPIX
+### CODEPIX
 
 - será capaz de atuar como um servidor gRPC.
 - consumir e publicar mensagens no Apache Kafka.
@@ -75,42 +74,44 @@ CDP --> |Confirmação. Status=Confirmed|BBX
 - Trabalhar com um design focado em solucionar o problema do domínio.
 - Deixar a complexidade técnica para "camada de aplicação", responsável pelo servidor gRPC e Kafka.
 
-# Arquitetura Hexagonal / Ports and Adaprters
+### Arquitetura Hexagonal / Ports and Adaprters
 
 Utilizar padrões existentes para criar aplicações. Desenvolver software sustentável.
+
 - Crescimento sustentável.
 - Manutenção.
 - A complexidade inicial se paga ao longo do projeto.
 - O seu software deve ser definido e desenhado por você e não pelo seu framework.
 - As peças têm que se encaixar, mas eventualmente podem ser substituídas ou adicionadas.
 
-  
-# O que é gRPC
+### O que é gRPC
+
 - gRPC é um framework desenvolvido pela google que tem o objetivo de facilitar o processo de comunicação entre sistemas de uma forma extremamente rápida, leve, independente de linguagem.
 - Faz parte da CNCF (Cloud Native Computation Foundation)
 
-# Em quais casos podemos utilizar
+### Em quais casos podemos utilizar
 
 - Ideal para microsserviços
 - Mobile, Browser e Backend
 - Geração das bibliotecas de forma automática
 - Streaming bidirecional utilizando HTTP/2
 
-# Linguagens (Suporte oficial)
+### Linguagens (Suporte oficial)
+
 - gRPC-GO
 - gRPC-Java
 - gRPC-C
-	- C++
-	- Python
-	- Ruby
-	- Objective-C
-	- PHP
-	- C#
-	- Node.js
-	- Dart
-	- Kotlin/JVM
+  - C++
+  - Python
+  - Ruby
+  - Objective-C
+  - PHP
+  - C#
+  - Node.js
+  - Dart
+  - Kotlin/JVM
 
-# RPC - Remote Procedure Call
+## RPC - Remote Procedure Call
 
 ```mermaid
 graph LR
@@ -126,7 +127,6 @@ style C margin:10
 
 ```
 
-
 ### Protocol Buffers
 
 "Protocol buffers are Google's language-neutral, platform-neutral, extensible machanism for serializing structure data - Think XML, but smaler, faster and simple"
@@ -138,21 +138,21 @@ style C margin:10
 - Gasta menos recursos de rede
 - Processo é mais veloz
 
-*Sintaxe* 
+#### *Sintaxe*
 
 ```proto3
 syntax="proto3";
 
 message SearchRequest (
-	string query = 1;
-	int32 page_number = 2;
-	int32 result_per_page = 3;
+ string query = 1;
+ int32 page_number = 2;
+ int32 result_per_page = 3;
 
 )
 
 ```
 
-# HTTP/2
+## HTTP/2
 
 - Nome original era SPDY
 - Lançado em 2015
@@ -163,8 +163,7 @@ message SearchRequest (
 - Gasta menos recursos de rede
 - Processo é mais veloz
 
-# gRPC - API "unary"
-
+## gRPC - API "unary"
 
 ```mermaid
 flowchart LR
@@ -182,8 +181,7 @@ style C margin:10
 
 ```
 
-# gPRC - API "Client streaming"
-
+## gPRC - API "Client streaming"
 
 ```mermaid
 flowchart LR
@@ -202,8 +200,7 @@ style C margin:10
 
 ```
 
-# gPRC - API "Bi Direcional streaming"
-
+## gPRC - API "Bi Direcional streaming"
 
 ```mermaid
 flowchart LR
@@ -225,10 +222,11 @@ style C margin:10
 
 ```
 
-## REST vs gRPC
-##### REST
+### REST vs gRPC
 
-- Texto / JSON                                                        
+#### REST
+
+- Texto / JSON
 - Unidirecional
 - Alta latência
 - Sem contrato ( maior chance de erros )
@@ -236,7 +234,7 @@ style C margin:10
 - Design pré-definido
 - Bibliotecas de terceiros
 
-##### gRPC
+#### gRPC
 
 - Protocol Buffers
 - Bidirecional e Assíncrono
@@ -245,5 +243,3 @@ style C margin:10
 - Suporte a Streaming
 - Design é livre
 - Geração de código
- 
-
