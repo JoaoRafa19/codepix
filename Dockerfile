@@ -11,6 +11,7 @@ RUN go mod init github.com/JoaoRafa19/codepix
 RUN go get google.golang.org/grpc/cmd/protoc-gen-go-grpc 
 RUN go get google.golang.org/protobuf/cmd/protoc-gen-go 
 RUN go get github.com/spf13/cobra@v1.7.0 
+RUN go install github.com/spf13/cobra-cli@latest
 RUN apt install protobuf-compiler
 RUN apt install vim
 RUN apt install golang-goprotobuf-dev -y

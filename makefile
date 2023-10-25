@@ -6,8 +6,14 @@ proto:
 test:
 	go test ./...
 
+startgrpc:
+	go run main.go grpc
+
 compose:
 	docker-compose up -d
 
 bash: compose
 	docker exec -it codepix-app-1 bash
+
+run:
+	go run main.go

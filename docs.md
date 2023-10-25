@@ -33,3 +33,21 @@ protoc --go_out=application/grpc/pb --go_opt=paths=source_relative --go-grpc_out
 ```bash
 evans -s --path ./application/grpc/protofiles/ --path . application/grpc/protofiles/pixkey.proto  
 ```
+
+## Cobra CLI
+
+``` bash
+cobra-cli init 
+```
+
+add grpc
+
+``` bash
+cobra-cli add grpc
+```
+
+### Inicia o gRPC server usando o cobra
+
+``` bash
+go run main.go grpc
+```
