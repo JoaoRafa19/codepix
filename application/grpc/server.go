@@ -14,15 +14,14 @@ import (
 )
 
 func StartGrpcServer(database *gorm.DB, port int) {
-	
+
 	grpcServer := grpc.NewServer()
 	reflection.Register(grpcServer)
 	pixRepository := repository.PixKeyRepositoryDB{Db: database}
 	pixUsecase := usecase.PixUseCase{PixKeyRepository: pixRepository}
 	pixGrpcService := NewgRPCService(pixUsecase)
-	
-	pb.RegisterPixServiceServer(grpcServer, pixGrpcService)
 
+	pb.RegisterPixServiceServer(grpcServer, pixGrpcService)
 
 	addres := fmt.Sprintf("0.0.0.0:%d", port)
 	listener, err := net.Listen("tcp", addres)

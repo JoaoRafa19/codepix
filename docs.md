@@ -58,7 +58,6 @@ cobra-cli add grpc
 go run main.go grpc
 ```
 
-
 ## Kafka
 
 ### Listando topicos
