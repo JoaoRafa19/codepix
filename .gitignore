@@ -1,2 +1,3 @@
 go.sum
 .pgdata/
+go.work.sum

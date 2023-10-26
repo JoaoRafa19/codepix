@@ -8,6 +8,12 @@ subindo os containers
 docker-compose up -d
 ```
 
+para abrir o shell de qualquer container
+
+```bash
+docker exec -it <container_name> bash
+```
+
 abrindo o shel da aplicação codepix-app-1
 
 ```bash
@@ -50,4 +56,19 @@ cobra-cli add grpc
 
 ``` bash
 go run main.go grpc
+```
+
+
+## Kafka
+
+### Listando topicos
+
+``` bash
+kafka-topics --list --bootstrap-server=localhost:9092
+```
+
+### Consumindo mensagens de um topico
+
+``` bash
+kafka-console-consumer --topic=teste --bootstrap-server=kafka:9092
 ```
