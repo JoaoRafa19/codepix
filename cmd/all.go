@@ -7,20 +7,25 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/JoaoRafa19/codepix/application/grpc"
 	"github.com/JoaoRafa19/codepix/application/kafka"
 	"github.com/JoaoRafa19/codepix/infrastructure/db"
 	"github.com/spf13/cobra"
 )
 
-var kafkaCmd = &cobra.Command{
-	Use:   "kafka",
-	Short: "Start consuming transactions using Apache Kafka",
+var grpcPortNumber int
+
+// allCmd represents the all command
+var allCmd = &cobra.Command{
+	Use:   "all",
+	Short: "Start gRPC and Kafka Consumer",
 
 	Run: func(_ *cobra.Command, _ []string) {
-		fmt.Println("Produzindo mensagem")
-		producer := kafka.NewKafkaProducer()
 		database := db.ConectDB(os.Getenv("env"))
-		producer.Publish("Ola consumer", "teste")
+		go grpc.StartGrpcServer(database, grpcPortNumber)
+
+		fmt.Println("Produzindo mensagens...")
+		producer := kafka.NewKafkaProducer()
 
 		go producer.DeliveryReport()
 
@@ -30,6 +35,7 @@ var kafkaCmd = &cobra.Command{
 }
 
 func init() {
-	rootCmd.AddCommand(kafkaCmd)
+	rootCmd.AddCommand(allCmd)
+	allCmd.Flags().IntVarP(&grpcPortNumber, "grpc-port", "p", 50051, "gRPC server port")
 
 }

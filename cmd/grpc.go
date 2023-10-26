@@ -1,5 +1,5 @@
 /*
-Copyright © 2023 NAME HERE <EMAIL ADDRESS>
+Copyright © 2023  JoaoRafa19 / joaopedrorafael19@gmail.com
 */
 package cmd
 
@@ -20,14 +20,14 @@ var grpcCmd = &cobra.Command{
 	// Long: ``,
 	Run: func(_ *cobra.Command, _ []string) {
 		database := db.ConectDB(os.Getenv("env"))
-		grpc.StartGrpcServer(database, portNumber)
+		grpc.StartGrpcServer(database, grpcPortNumber)
 	},
 }
 
 func init() {
 	rootCmd.AddCommand(grpcCmd)
 
-	grpcCmd.Flags().IntVarP(&portNumber, "port", "p", 50051, "gRPC server port")
+	grpcCmd.Flags().IntVarP(&grpcPortNumber, "port", "p", 50051, "gRPC server port")
 
 	// Here you will define your flags and configuration settings.
 

@@ -2,22 +2,20 @@ package kafka
 
 import (
 	"fmt"
+	"os"
 
 	ckafka "github.com/confluentinc/confluent-kafka-go/kafka"
 )
 
-
 type Producer struct {
 	kafkaProducer *ckafka.Producer
-	deliveryChan chan ckafka.Event
+	deliveryChan  chan ckafka.Event
 }
 
-
-func NewKafkaProducer() * Producer{
-
+func NewKafkaProducer() *Producer {
 
 	configMap := ckafka.ConfigMap{
-		"bootstrap.servers": "kafka:9092",
+		"bootstrap.servers": os.Getenv("kafkaBootstrapServers"),
 	}
 	p, err := ckafka.NewProducer(&configMap)
 
@@ -28,7 +26,7 @@ func NewKafkaProducer() * Producer{
 
 	return &Producer{
 		kafkaProducer: p,
-		deliveryChan: make(chan ckafka.Event),
+		deliveryChan:  make(chan ckafka.Event),
 	}
 }
 
@@ -45,16 +43,16 @@ func (p *Producer) DeliveryReport() {
 	}
 }
 
-func (p * Producer) Publish (msg string, topic string) error {
-	
+func (p *Producer) Publish(msg string, topic string) error {
+
 	message := &ckafka.Message{
 		TopicPartition: ckafka.TopicPartition{Topic: &topic, Partition: ckafka.PartitionAny},
-		Value: []byte(msg),
+		Value:          []byte(msg),
 	}
-	err := p.kafkaProducer.Produce(message, p.deliveryChan )
+	err := p.kafkaProducer.Produce(message, p.deliveryChan)
 
 	if err != nil {
-		return err;
+		return err
 	}
 	return nil
 }

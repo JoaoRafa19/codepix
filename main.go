@@ -1,6 +1,5 @@
 /*
-Copyright © 2023 NAME HERE <EMAIL ADDRESS>
-
+Copyright © 2023  JoaoRafa19 / joaopedrorafael19@gmail.com
 */
 package main
 
